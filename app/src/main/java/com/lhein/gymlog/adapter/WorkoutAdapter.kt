@@ -1,30 +1,46 @@
 package com.lhein.gymlog.adapter
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.lhein.gymlog.databinding.ItemWorkoutBinding
+import com.lhein.gymlog.model.Workout
 
-class WorkoutAdapter() : RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
+class WorkoutAdapter(
+    private val onClick: (Workout) -> Unit // Função que será chamada no clique
+) : RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
-    inner class WorkoutViewHolder(itemBinding: ItemWorkoutBinding) : RecyclerView.ViewHolder(itemBinding.root) {
-        //TODO("Implementar")
+    private var listWorkouts = emptyList<Workout>()
+
+    fun updateList(newList: List<Workout>) {
+        listWorkouts = newList
+        notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(
-        p0: ViewGroup,
-        p1: Int
-    ): WorkoutViewHolder {
-        TODO("Not yet implemented")
+    inner class WorkoutViewHolder(val binding: ItemWorkoutBinding)
+        : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(workout: Workout) {
+            binding.txtExerciseName.text = workout.exerciseName
+            binding.txtGroupBadge.text = workout.group
+
+            // Configura o clique no card
+            binding.root.setOnClickListener {
+                onClick(workout)
+            }
+        }
     }
 
-    override fun onBindViewHolder(
-        p0: WorkoutViewHolder,
-        p1: Int
-    ) {
-        TODO("Not yet implemented")
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val binding = ItemWorkoutBinding.inflate(layoutInflater, parent, false)
+        return WorkoutViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+    override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
+        val workout = listWorkouts[position]
+        holder.bind(workout)
     }
+
+    override fun getItemCount(): Int = listWorkouts.size
 }

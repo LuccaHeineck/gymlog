@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.microsoft.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddWorkoutActivity">
+
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Novo Treino"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editNomeExercicio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:hint="Nome do exercício"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textTitulo" />
+
+    <EditText
+        android:id="@+id/editSeries"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Séries"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/editReps"
+        app:layout_constraintStart_toStartOf="@+id/editNomeExercicio"
+        app:layout_constraintTop_toBottomOf="@+id/editNomeExercicio" />
+
+    <EditText
+        android:id="@+id/editReps"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="Reps"
+        android:inputType="number"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/editNomeExercicio"
+        app:layout_constraintStart_toEndOf="@+id/editSeries"
+        app:layout_constraintTop_toTopOf="@+id/editSeries" />
+
+    <EditText
+        android:id="@+id/editPeso"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Peso (kg)"
+        android:inputType="numberDecimal"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="@+id/editReps"
+        app:layout_constraintStart_toStartOf="@+id/editSeries"
+        app:layout_constraintTop_toBottomOf="@+id/editSeries" />
+
+    <Spinner
+        android:id="@+id/spinnerDia"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/editPeso"
+        app:layout_constraintStart_toStartOf="@+id/editPeso"
+        app:layout_constraintTop_toBottomOf="@+id/editPeso" />
+
+    <Spinner
+        android:id="@+id/spinnerGrupo"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerDia"
+        app:layout_constraintStart_toStartOf="@+id/spinnerDia"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDia" />
+
+    <Button
+        android:id="@+id/btnSalvar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Salvar Treino"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerGrupo"
+        app:layout_constraintStart_toStartOf="@+id/spinnerGrupo"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGrupo" />
+
+    <Button
+        android:id="@+id/btnExcluir"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Excluir Treino"
+        android:textColor="#F44336"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="@+id/btnSalvar"
+        app:layout_constraintStart_toStartOf="@+id/btnSalvar"
+        app:layout_constraintTop_toBottomOf="@+id/btnSalvar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

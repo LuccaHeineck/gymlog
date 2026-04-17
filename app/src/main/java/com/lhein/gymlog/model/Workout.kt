@@ -1,5 +1,7 @@
 package com.lhein.gymlog.model
 
+import java.io.Serializable
+
 data class Workout (
     val idWorkout: Int,
     val exerciseName: String,
@@ -9,4 +11,4 @@ data class Workout (
     val date: String,
     val group: String,
     val dayOfWeek: String
-)
+) : Serializable
