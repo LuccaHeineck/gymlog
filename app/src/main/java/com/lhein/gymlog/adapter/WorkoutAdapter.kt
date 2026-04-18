@@ -1,13 +1,18 @@
 package com.lhein.gymlog.adapter
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.MaterialColors
+import com.google.android.material.shape.ShapeAppearanceModel
+import com.lhein.gymlog.R
 import com.lhein.gymlog.databinding.ItemWorkoutBinding
 import com.lhein.gymlog.model.Workout
 
 class WorkoutAdapter(
-    private val onClick: (Workout) -> Unit // Função que será chamada no clique
+    private val onClick: (Workout) -> Unit
 ) : RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
     private var listWorkouts = emptyList<Workout>()
@@ -20,13 +25,73 @@ class WorkoutAdapter(
     inner class WorkoutViewHolder(val binding: ItemWorkoutBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(workout: Workout) {
-            binding.txtExerciseName.text = workout.exerciseName
-            binding.txtGroupBadge.text = workout.group
+        fun bind(workout: Workout, position: Int) {
+            val context = itemView.context
 
-            // Configura o clique no card
+            // 1. Dados Básicos
+            binding.txtExerciseName.text = workout.exerciseName
+            binding.txtDetails.text = "${workout.sets} x ${workout.reps} • ${workout.weight}kg"
+
+            // 2. Badge Dinâmica por Grupo
+            val group = workout.group
+            binding.txtGroupBadge.text = group
+            binding.txtGroupBadge.backgroundTintList = ColorStateList.valueOf(getBadgeColor(group))
+            binding.txtGroupBadge.setTextColor(getBadgeTextColor(group))
+
+            // 3. Lista de Shapes (Material Design 3)
+            val shapes = listOf(
+                R.style.ShapeAppearance_M3_Clamshell,
+                R.style.ShapeAppearance_M3_Arch,
+                R.style.ShapeAppearance_M3_Gem,
+                R.style.ShapeAppearance_M3_Sunny,
+                R.style.ShapeAppearance_M3_Cookie,
+                R.style.ShapeAppearance_M3_Oval,
+                R.style.ShapeAppearance_M3_Slanted,
+                R.style.ShapeAppearance_M3_Arrow,
+                R.style.ShapeAppearance_M3_Bun
+            )
+
+            // 4. Aplicação do Shape e Cor de Fundo Adaptável
+            val selectedShape = shapes[position % shapes.size]
+            binding.imgWorkoutShape.shapeAppearanceModel = ShapeAppearanceModel.builder(
+                context,
+                selectedShape,
+                0
+            ).build()
+
+            // Pega a cor do tema (PrimaryContainer) para o shape ser Dark Mode friendly
+            val shapeBgColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryContainer, Color.LTGRAY)
+            binding.imgWorkoutShape.backgroundTintList = ColorStateList.valueOf(shapeBgColor)
+
+            // 5. Clique
             binding.root.setOnClickListener {
                 onClick(workout)
+            }
+        }
+
+        // Lógica de cores das badges (Container Colors)
+        private fun getBadgeColor(group: String): Int {
+            return when (group) {
+                "Peito" -> Color.parseColor("#FFDAD6")   // Red Container
+                "Costas" -> Color.parseColor("#D7E3FF")  // Blue Container
+                "Pernas" -> Color.parseColor("#E4E199")  // Olive Container
+                "Braços" -> Color.parseColor("#F2DAFF")  // Purple Container
+                "Ombros" -> Color.parseColor("#FFDCC0")  // Orange Container
+                "Abdomem" -> Color.parseColor("#C6F0D2") // Green Container
+                else -> Color.parseColor("#E1E2EC")      // Neutral Container
+            }
+        }
+
+        // Lógica de cores do texto das badges (On-Container Colors)
+        private fun getBadgeTextColor(group: String): Int {
+            return when (group) {
+                "Peito" -> Color.parseColor("#410002")
+                "Costas" -> Color.parseColor("#001B3D")
+                "Pernas" -> Color.parseColor("#1D1D00")
+                "Braços" -> Color.parseColor("#250059")
+                "Ombros" -> Color.parseColor("#2F1500")
+                "Abdomem" -> Color.parseColor("#00210A")
+                else -> Color.parseColor("#1A1C1E")
             }
         }
     }
@@ -38,8 +103,7 @@ class WorkoutAdapter(
     }
 
     override fun onBindViewHolder(holder: WorkoutViewHolder, position: Int) {
-        val workout = listWorkouts[position]
-        holder.bind(workout)
+        holder.bind(listWorkouts[position], position)
     }
 
     override fun getItemCount(): Int = listWorkouts.size

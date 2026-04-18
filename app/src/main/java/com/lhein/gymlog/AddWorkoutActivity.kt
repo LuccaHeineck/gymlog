@@ -1,9 +1,11 @@
 package com.lhein.gymlog
 
 import android.os.Bundle
+import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import com.lhein.gymlog.database.WorkoutDAO
 import com.lhein.gymlog.databinding.ActivityAddWorkoutBinding
 import com.lhein.gymlog.model.Workout
@@ -19,41 +21,67 @@ class AddWorkoutActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupSpinners()
+        setupListeners() // Configura os limpadores de erro
 
-        // 1. Verificar se é Edição ou Novo
         val bundle = intent.extras
         if (bundle != null) {
             workoutExistente = bundle.getSerializable("workout") as? Workout
             workoutExistente?.let { preencherCampos(it) }
         } else {
-            // Se for novo, esconde o botão de excluir
-            binding.btnExcluir.visibility = android.view.View.GONE
+            binding.btnExcluir.visibility = View.GONE
         }
 
-        // 2. Botão Salvar/Atualizar
         binding.btnSalvar.setOnClickListener {
             if (validarCampos()) {
                 if (workoutExistente != null) editar(workoutExistente!!) else salvar()
             }
         }
 
-        // 3. Botão Excluir
+        binding.btnBack.setOnClickListener { finish() }
+
         binding.btnExcluir.setOnClickListener {
             workoutExistente?.let { excluir(it.idWorkout) }
         }
     }
 
+    // Limpa o erro assim que o usuário começa a digitar
+    private fun setupListeners() {
+        binding.editNomeExercicio.addTextChangedListener { binding.layoutNome.error = null }
+        binding.editSeries.addTextChangedListener { binding.layoutSeries.error = null }
+        binding.editReps.addTextChangedListener { binding.layoutReps.error = null }
+    }
+
+    private fun validarCampos(): Boolean {
+        var isValid = true
+
+        if (binding.editNomeExercicio.text.toString().isEmpty()) {
+            binding.layoutNome.error = "Campo obrigatório"
+            isValid = false
+        }
+
+        if (binding.editSeries.text.toString().isEmpty()) {
+            binding.layoutSeries.error = "Informe as séries"
+            isValid = false
+        }
+
+        if (binding.editReps.text.toString().isEmpty()) {
+            binding.layoutReps.error = "Informe as reps"
+            isValid = false
+        }
+
+        return isValid
+    }
+
     private fun preencherCampos(workout: Workout) {
         binding.textTitulo.text = "Editar Treino"
         binding.btnSalvar.text = "Atualizar"
-        binding.btnExcluir.visibility = android.view.View.VISIBLE
+        binding.btnExcluir.visibility = View.VISIBLE
 
         binding.editNomeExercicio.setText(workout.exerciseName)
         binding.editSeries.setText(workout.sets.toString())
         binding.editReps.setText(workout.reps.toString())
         binding.editPeso.setText(workout.weight.toString())
 
-        // Seta os Spinners para o valor que veio do banco
         setSpinnerValue(binding.spinnerDia, workout.dayOfWeek)
         setSpinnerValue(binding.spinnerGrupo, workout.group)
     }
@@ -65,18 +93,9 @@ class AddWorkoutActivity : AppCompatActivity() {
         }
     }
 
-    private fun validarCampos(): Boolean {
-        if (binding.editNomeExercicio.text.toString().isEmpty()) {
-            binding.editNomeExercicio.error = "Campo obrigatório"
-            return false
-        }
-        return true
-    }
-
-    // Função auxiliar para selecionar o item correto no Spinner
     private fun setSpinnerValue(spinner: android.widget.Spinner, value: String) {
-        val adapter = spinner.adapter as ArrayAdapter<String>
-        val position = adapter.getPosition(value)
+        val adapter = spinner.adapter as? ArrayAdapter<String>
+        val position = adapter?.getPosition(value) ?: -1
         if (position >= 0) spinner.setSelection(position)
     }
 
@@ -103,7 +122,7 @@ class AddWorkoutActivity : AppCompatActivity() {
             sets = binding.editSeries.text.toString().toIntOrNull() ?: 0,
             reps = binding.editReps.text.toString().toIntOrNull() ?: 0,
             weight = binding.editPeso.text.toString().toDoubleOrNull() ?: 0.0,
-            date = "", // O SQLite gera via CURRENT_TIMESTAMP
+            date = "",
             group = binding.spinnerGrupo.selectedItem.toString(),
             dayOfWeek = binding.spinnerDia.selectedItem.toString()
         )

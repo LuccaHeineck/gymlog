@@ -5,5 +5,85 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
+    <style name="ShapeAppearance.GymLog.MorphingShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomLeft">80dp</item>
+        <item name="cornerSizeBottomRight">30dp</item>
+    </style>
+
     <style name="Theme.Gymlog" parent="Base.Theme.Gymlog" />
+
+    <style name="ShapeAppearance.GymLog.FAB" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> </style>
+
+    <style name="ShapeAppearance.M3.Clamshell" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">30%</item>
+        <item name="cornerSizeTopRight">30%</item>
+        <item name="cornerSizeBottomLeft">4dp</item>
+        <item name="cornerSizeBottomRight">30%</item>
+    </style>
+
+    <style name="ShapeAppearance.M3.Arch" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">100%</item> <item name="cornerSizeTopRight">0%</item>
+        <item name="cornerSizeBottomLeft">0%</item>
+        <item name="cornerSizeBottomRight">0%</item>
+    </style>
+
+        <style name="ShapeAppearance.M3.Sunny" parent="">
+            <item name="cornerFamily">cut</item>
+            <item name="cornerSize">40%</item>
+        </style>
+
+        <style name="ShapeAppearance.M3.Cookie" parent="">
+            <item name="cornerFamily">rounded</item>
+            <item name="cornerSizeTopLeft">50%</item>
+            <item name="cornerSizeTopRight">15%</item>
+            <item name="cornerSizeBottomLeft">15%</item>
+            <item name="cornerSizeBottomRight">50%</item>
+        </style>
+
+        <style name="ShapeAppearance.M3.Oval" parent="">
+            <item name="cornerFamily">rounded</item>
+            <item name="cornerSize">100%</item>
+        </style>
+
+        <style name="ShapeAppearance.M3.Slanted" parent="">
+            <item name="cornerFamily">cut</item>
+            <item name="cornerSizeTopLeft">30%</item>
+            <item name="cornerSizeBottomRight">30%</item>
+        </style>
+
+
+    <style name="ShapeAppearance.M3.Arrow" parent="">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeTopRight">100%</item>
+        <item name="cornerSizeBottomRight">100%</item>
+    </style>
+
+    <style name="ShapeAppearance.M3.Bun" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">40%</item>
+        <item name="cornerSizeTopRight">40%</item>
+        <item name="cornerSizeBottomLeft">40%</item>
+        <item name="cornerSizeBottomRight">40%</item>
+    </style>
+
+    <style name="ShapeAppearance.M3.Heart" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">50%</item>
+        <item name="cornerSizeTopRight">50%</item>
+        <item name="cornerSizeBottomLeft">10%</item>
+        <item name="cornerSizeBottomRight">10%</item>
+    </style>
+
+    <style name="ShapeAppearance.M3.Gem" parent="">
+        <item name="cornerFamily">cut</item> <item name="cornerSize">20%</item>
+    </style>
 </resources>

@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.microsoft.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA"
+    android:background="?attr/colorSurface"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/txtHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
         android:text="Meus Treinos"
-        android:textColor="@color/black"
-        android:textSize="24sp"
+        android:textColor="?attr/colorOnSurface"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,13 +28,13 @@
         android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         app:layout_constraintTop_toBottomOf="@id/txtHeader"
-        app:tabIndicatorColor="#6200EE"
+        app:tabIndicatorColor="?attr/colorPrimary"
         app:tabIndicatorFullWidth="false"
-        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorHeight="4dp"
         app:tabMode="scrollable"
-        app:tabRippleColor="@null"
-        app:tabSelectedTextColor="#6200EE"
-        app:tabTextColor="#757575" />
+        app:tabSelectedTextColor="?attr/colorPrimary"
+        app:tabTextColor="?attr/colorOnSurfaceVariant"
+        app:tabRippleColor="?attr/colorControlHighlight" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvwWorkouts"
@@ -42,8 +42,8 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
-        android:paddingBottom="80dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:paddingHorizontal="12dp"
+        android:paddingBottom="100dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -54,15 +54,17 @@
         android:id="@+id/fabAdicionar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="52dp"
         android:clickable="true"
-        android:contentDescription="Adicionar treino"
         android:focusable="true"
-        app:backgroundTint="#6200EE"
+        app:backgroundTint="?attr/colorPrimaryContainer"
+        app:elevation="4dp"
+        app:fabCustomSize="64dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.GymLog.FAB"
         app:srcCompat="@drawable/ic_add_24"
-        app:tint="@color/white" />
+        app:tint="?attr/colorOnPrimaryContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
