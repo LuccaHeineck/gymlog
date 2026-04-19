@@ -21,11 +21,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Inicializa o Adapter com a nova lógica: clicar no card abre a tela de edição
-        workoutAdapter = WorkoutAdapter { workout ->
-            val intent = Intent(this, AddWorkoutActivity::class.java)
-            intent.putExtra("workout", workout) // Passa o objeto selecionado
-            startActivity(intent)
-        }
+        workoutAdapter = WorkoutAdapter(
+            onClick = { workout ->
+                val intent = Intent(this, AddWorkoutActivity::class.java)
+                intent.putExtra("workout", workout)
+                startActivity(intent)
+            },
+            onCompleteClick = { workout ->
+                // Atualiza no banco de dados
+                workoutDAO.update(workout)
+                // Atualiza a lista visualmente (re-filtra)
+                val diaAtual = binding.tabLayoutDays.getTabAt(binding.tabLayoutDays.selectedTabPosition)?.text.toString()
+                executarFiltro(diaAtual)
+            }
+        )
 
         binding.rvwWorkouts.adapter = workoutAdapter
         binding.rvwWorkouts.layoutManager = LinearLayoutManager(this)

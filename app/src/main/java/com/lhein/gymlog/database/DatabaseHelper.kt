@@ -18,6 +18,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         const val COLUMN_DATE = "date_created"
         const val COLUMN_GROUP = "muscle_group"
         const val COLUMN_DAY_OF_WEEK = "day_of_week"
+        const val COLUMN_DURATION = "duration"
+        const val COLUMN_COMPLETE = "complete"
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
@@ -30,7 +32,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 $COLUMN_WEIGHT REAL,
                 $COLUMN_DATE DATETIME DEFAULT CURRENT_TIMESTAMP,
                 $COLUMN_GROUP TEXT,
-                $COLUMN_DAY_OF_WEEK TEXT
+                $COLUMN_DAY_OF_WEEK TEXT,
+                $COLUMN_DURATION INTEGER,
+                $COLUMN_COMPLETE INTEGER DEFAULT 0
             );
         """.trimIndent()
 

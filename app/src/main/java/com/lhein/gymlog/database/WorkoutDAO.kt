@@ -18,6 +18,8 @@ class WorkoutDAO(context: Context) : IWorkoutDAO {
         content.put(DatabaseHelper.COLUMN_WEIGHT, workout.weight)
         content.put(DatabaseHelper.COLUMN_GROUP, workout.group)
         content.put(DatabaseHelper.COLUMN_DAY_OF_WEEK, workout.dayOfWeek)
+        content.put(DatabaseHelper.COLUMN_DURATION, workout.duration)
+        content.put(DatabaseHelper.COLUMN_COMPLETE, if (workout.isComplete) 1 else 0)
 
         try {
             write.insert(
@@ -45,6 +47,8 @@ class WorkoutDAO(context: Context) : IWorkoutDAO {
         content.put(DatabaseHelper.COLUMN_WEIGHT, workout.weight)
         content.put(DatabaseHelper.COLUMN_GROUP, workout.group)
         content.put(DatabaseHelper.COLUMN_DAY_OF_WEEK, workout.dayOfWeek)
+        content.put(DatabaseHelper.COLUMN_DURATION, workout.duration)
+        content.put(DatabaseHelper.COLUMN_COMPLETE, if (workout.isComplete) 1 else 0)
 
         try {
             write.update(
@@ -92,6 +96,8 @@ class WorkoutDAO(context: Context) : IWorkoutDAO {
                 "${DatabaseHelper.COLUMN_WEIGHT}, " +
                 "${DatabaseHelper.COLUMN_GROUP}, " +
                 "${DatabaseHelper.COLUMN_DAY_OF_WEEK}, " +
+                "${DatabaseHelper.COLUMN_DURATION}, " +
+                "${DatabaseHelper.COLUMN_COMPLETE}, " +
                 "    strftime('%d/%m/%Y %H:%M', ${DatabaseHelper.COLUMN_DATE}) ${DatabaseHelper.COLUMN_DATE} " +
                 "FROM ${DatabaseHelper.TABLE_WORKOUTS}"
 
@@ -104,6 +110,8 @@ class WorkoutDAO(context: Context) : IWorkoutDAO {
         val indexWeight = cursor.getColumnIndex(DatabaseHelper.COLUMN_WEIGHT)
         val indexGroup = cursor.getColumnIndex(DatabaseHelper.COLUMN_GROUP)
         val indexDayOfWeek = cursor.getColumnIndex(DatabaseHelper.COLUMN_DAY_OF_WEEK)
+        val indexDuration = cursor.getColumnIndex(DatabaseHelper.COLUMN_DURATION)
+        val indexComplete = cursor.getColumnIndex(DatabaseHelper.COLUMN_COMPLETE)
         val indexDate = cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE)
 
         while ( cursor.moveToNext() ) {
@@ -114,9 +122,11 @@ class WorkoutDAO(context: Context) : IWorkoutDAO {
             val weight = cursor.getDouble(indexWeight)
             val group = cursor.getString(indexGroup)
             val dayOfWeek = cursor.getString(indexDayOfWeek)
+            val duration = cursor.getInt(indexDuration)
+            val isComplete = cursor.getInt(indexComplete) == 1
             val date = cursor.getString(indexDate)
 
-            listWorkouts.add(Workout(id, exerciseName, sets, reps, weight, date, group, dayOfWeek))
+            listWorkouts.add(Workout(id, exerciseName, sets, reps, weight, date, group, dayOfWeek, duration, isComplete))
         }
         return listWorkouts
     }

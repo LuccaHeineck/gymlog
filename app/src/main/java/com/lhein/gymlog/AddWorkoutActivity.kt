@@ -59,16 +59,6 @@ class AddWorkoutActivity : AppCompatActivity() {
             isValid = false
         }
 
-        if (binding.editSeries.text.toString().isEmpty()) {
-            binding.layoutSeries.error = "Informe as séries"
-            isValid = false
-        }
-
-        if (binding.editReps.text.toString().isEmpty()) {
-            binding.layoutReps.error = "Informe as reps"
-            isValid = false
-        }
-
         return isValid
     }
 
@@ -81,6 +71,7 @@ class AddWorkoutActivity : AppCompatActivity() {
         binding.editSeries.setText(workout.sets.toString())
         binding.editReps.setText(workout.reps.toString())
         binding.editPeso.setText(workout.weight.toString())
+        binding.editDuracao.setText(workout.duration.toString())
 
         setSpinnerValue(binding.spinnerDia, workout.dayOfWeek)
         setSpinnerValue(binding.spinnerGrupo, workout.group)
@@ -124,13 +115,15 @@ class AddWorkoutActivity : AppCompatActivity() {
             weight = binding.editPeso.text.toString().toDoubleOrNull() ?: 0.0,
             date = "",
             group = binding.spinnerGrupo.selectedItem.toString(),
-            dayOfWeek = binding.spinnerDia.selectedItem.toString()
+            dayOfWeek = binding.spinnerDia.selectedItem.toString(),
+            duration = binding.editDuracao.text.toString().toIntOrNull() ?: 0,
+            isComplete = workoutExistente?.isComplete ?: false
         )
     }
 
     private fun setupSpinners() {
         val dias = listOf("Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom")
-        val grupos = listOf("Peito", "Costas", "Pernas", "Braços", "Ombros", "Abdomem")
+        val grupos = listOf("Peito", "Costas", "Pernas", "Braços", "Ombros", "Abdomem", "Cardio")
 
         binding.spinnerDia.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dias)
         binding.spinnerGrupo.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, grupos)

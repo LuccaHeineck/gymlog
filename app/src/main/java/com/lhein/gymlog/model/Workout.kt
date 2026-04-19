@@ -10,5 +10,7 @@ data class Workout (
     val weight: Double,
     val date: String,
     val group: String,
-    val dayOfWeek: String
+    val dayOfWeek: String,
+    val duration: Int,
+    val isComplete: Boolean
 ) : Serializable

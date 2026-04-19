@@ -12,7 +12,8 @@ import com.lhein.gymlog.databinding.ItemWorkoutBinding
 import com.lhein.gymlog.model.Workout
 
 class WorkoutAdapter(
-    private val onClick: (Workout) -> Unit
+    private val onClick: (Workout) -> Unit,
+    private val onCompleteClick: (Workout) -> Unit
 ) : RecyclerView.Adapter<WorkoutAdapter.WorkoutViewHolder>() {
 
     private var listWorkouts = emptyList<Workout>()
@@ -30,9 +31,52 @@ class WorkoutAdapter(
 
             // 1. Dados Básicos
             binding.txtExerciseName.text = workout.exerciseName
-            binding.txtDetails.text = "${workout.sets} x ${workout.reps} • ${workout.weight}kg"
+            
+            val details = mutableListOf<String>()
+            if (workout.sets > 0 && workout.reps > 0) {
+                details.add("${workout.sets} x ${workout.reps}")
+            } else if (workout.sets > 0) {
+                details.add("${workout.sets} séries")
+            } else if (workout.reps > 0) {
+                details.add("${workout.reps} reps")
+            }
+            
+            if (workout.weight > 0) {
+                details.add("${workout.weight}kg")
+            }
+            
+            if (workout.duration > 0) {
+                details.add("${workout.duration}min")
+            }
+            
+            if (details.isEmpty()) {
+                binding.txtDetails.text = ""
+                binding.imgWorkoutShape.visibility = android.view.View.GONE
+            } else {
+                binding.txtDetails.text = details.joinToString(" • ")
+                binding.imgWorkoutShape.visibility = android.view.View.VISIBLE
+            }
 
-            // 2. Badge Dinâmica por Grupo
+            // 2. Estado de Conclusão (Checkbox)
+            binding.cbComplete.setOnCheckedChangeListener(null) // Evita trigger ao reciclar
+            binding.cbComplete.isChecked = workout.isComplete
+            
+            // Visual feedback
+            if (workout.isComplete) {
+                binding.txtExerciseName.alpha = 0.5f
+                binding.txtDetails.alpha = 0.5f
+                binding.imgWorkoutShape.alpha = 0.5f
+            } else {
+                binding.txtExerciseName.alpha = 1.0f
+                binding.txtDetails.alpha = 1.0f
+                binding.imgWorkoutShape.alpha = 1.0f
+            }
+
+            binding.cbComplete.setOnCheckedChangeListener { _, isChecked ->
+                onCompleteClick(workout.copy(isComplete = isChecked))
+            }
+
+            // 3. Badge Dinâmica por Grupo
             val group = workout.group
             binding.txtGroupBadge.text = group
             binding.txtGroupBadge.backgroundTintList = ColorStateList.valueOf(getBadgeColor(group))
@@ -78,6 +122,7 @@ class WorkoutAdapter(
                 "Braços" -> Color.parseColor("#F2DAFF")  // Purple Container
                 "Ombros" -> Color.parseColor("#FFDCC0")  // Orange Container
                 "Abdomem" -> Color.parseColor("#C6F0D2") // Green Container
+                "Cardio" -> Color.parseColor("#B9F0FF")  // Cyan Container
                 else -> Color.parseColor("#E1E2EC")      // Neutral Container
             }
         }
@@ -91,6 +136,7 @@ class WorkoutAdapter(
                 "Braços" -> Color.parseColor("#250059")
                 "Ombros" -> Color.parseColor("#2F1500")
                 "Abdomem" -> Color.parseColor("#00210A")
+                "Cardio" -> Color.parseColor("#001F24")
                 else -> Color.parseColor("#1A1C1E")
             }
         }

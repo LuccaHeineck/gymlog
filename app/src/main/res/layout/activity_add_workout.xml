@@ -129,7 +129,7 @@
         app:boxCornerRadiusBottomStart="28dp"
         app:boxCornerRadiusTopEnd="28dp"
         app:boxCornerRadiusTopStart="28dp"
-        app:layout_constraintEnd_toEndOf="@+id/layoutNome"
+        app:layout_constraintEnd_toStartOf="@+id/layoutDuracao"
         app:layout_constraintStart_toStartOf="@+id/layoutNome"
         app:layout_constraintTop_toBottomOf="@+id/layoutSeries">
 
@@ -140,16 +140,37 @@
             android:inputType="numberDecimal" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/layoutDuracao"
+        style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:hint="Duração (min)"
+        app:boxCornerRadiusBottomEnd="28dp"
+        app:boxCornerRadiusBottomStart="28dp"
+        app:boxCornerRadiusTopEnd="28dp"
+        app:boxCornerRadiusTopStart="28dp"
+        app:layout_constraintEnd_toEndOf="@+id/layoutNome"
+        app:layout_constraintStart_toEndOf="@+id/layoutPeso"
+        app:layout_constraintTop_toTopOf="@+id/layoutPeso">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editDuracao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <TextView
         android:id="@+id/lblDia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="16dp"
         android:text="Dia da Semana"
         android:textSize="12sp"
         android:textColor="?attr/colorOnSurfaceVariant"
-        app:layout_constraintStart_toStartOf="@+id/layoutPeso"
+        app:layout_constraintStart_toStartOf="@+id/layoutNome"
         app:layout_constraintTop_toBottomOf="@+id/layoutPeso" />
 
     <Spinner
@@ -158,8 +179,8 @@
         android:layout_height="56dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/bg_spinner_full_rounded"
-        app:layout_constraintEnd_toEndOf="@+id/layoutPeso"
-        app:layout_constraintStart_toStartOf="@+id/layoutPeso"
+        app:layout_constraintEnd_toEndOf="@+id/layoutNome"
+        app:layout_constraintStart_toStartOf="@+id/layoutNome"
         app:layout_constraintTop_toBottomOf="@+id/lblDia" />
 
     <TextView
@@ -167,11 +188,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginStart="16dp"
         android:text="Grupo Muscular"
         android:textSize="12sp"
         android:textColor="?attr/colorOnSurfaceVariant"
-        app:layout_constraintStart_toStartOf="@+id/spinnerDia"
+        app:layout_constraintStart_toStartOf="@+id/layoutNome"
         app:layout_constraintTop_toBottomOf="@+id/spinnerDia" />
 
     <Spinner
@@ -180,9 +200,20 @@
         android:layout_height="56dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/bg_spinner_full_rounded"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerDia"
-        app:layout_constraintStart_toStartOf="@+id/spinnerDia"
+        app:layout_constraintEnd_toEndOf="@+id/layoutNome"
+        app:layout_constraintStart_toStartOf="@+id/layoutNome"
         app:layout_constraintTop_toBottomOf="@+id/lblGrupo" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSalvar"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="24dp"
+        android:text="Salvar Treino"
+        app:cornerRadius="28dp"
+        app:layout_constraintEnd_toEndOf="@+id/layoutNome"
+        app:layout_constraintStart_toStartOf="@+id/layoutNome"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGrupo" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnExcluir"
@@ -192,19 +223,8 @@
         android:layout_marginTop="4dp"
         android:text="Excluir Treino"
         android:textColor="?attr/colorError"
-        app:layout_constraintEnd_toEndOf="@+id/btnSalvar"
-        app:layout_constraintStart_toStartOf="@+id/btnSalvar"
+        app:layout_constraintEnd_toEndOf="@+id/layoutNome"
+        app:layout_constraintStart_toStartOf="@+id/layoutNome"
         app:layout_constraintTop_toBottomOf="@+id/btnSalvar" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnSalvar"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:layout_marginTop="24dp"
-        android:text="Salvar Treino"
-        app:cornerRadius="28dp"
-        app:layout_constraintEnd_toEndOf="@+id/spinnerGrupo"
-        app:layout_constraintStart_toStartOf="@+id/spinnerGrupo"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerGrupo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

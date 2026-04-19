@@ -14,52 +14,62 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="12dp">
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="8dp">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgWorkoutShape"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:layout_margin="4dp"
-            android:background="?attr/colorPrimaryContainer"
-            android:padding="12dp"
-            android:scaleType="centerInside"
+        <CheckBox
+            android:id="@+id/cbComplete"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:button="@drawable/sl_checkbox_round"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_fitness_24"
-            app:tint="?attr/colorOnPrimaryContainer" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txtExerciseName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="4dp"
             android:text="Rosca Direta"
             android:textColor="?attr/colorOnSurface"
             android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/txtGroupBadge"
-            app:layout_constraintStart_toEndOf="@+id/imgWorkoutShape"
-            app:layout_constraintTop_toTopOf="@+id/imgWorkoutShape" />
+            app:layout_constraintStart_toEndOf="@+id/cbComplete"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgWorkoutShape"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="-2dp"
+            android:background="?attr/colorPrimaryContainer"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            app:layout_constraintStart_toStartOf="@+id/txtExerciseName"
+            app:layout_constraintTop_toBottomOf="@+id/txtExerciseName"
+            app:tint="?attr/colorOnPrimaryContainer" />
 
         <TextView
             android:id="@+id/txtDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
+            android:layout_marginStart="4dp"
             android:text="3 x 12 • 15kg"
             android:textColor="?attr/colorOnSurfaceVariant"
             android:textSize="13sp"
-            app:layout_constraintStart_toStartOf="@+id/txtExerciseName"
-            app:layout_constraintTop_toBottomOf="@+id/txtExerciseName" />
+            app:layout_constraintBottom_toBottomOf="@+id/imgWorkoutShape"
+            app:layout_constraintStart_toEndOf="@+id/imgWorkoutShape"
+            app:layout_constraintTop_toTopOf="@+id/imgWorkoutShape" />
 
         <TextView
             android:id="@+id/txtGroupBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="4dp"
             android:background="@drawable/bg_badge"
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
