@@ -119,7 +119,8 @@ class WorkoutAdapter(
                 "Peito" -> Color.parseColor("#FFDAD6")   // Red Container
                 "Costas" -> Color.parseColor("#D7E3FF")  // Blue Container
                 "Pernas" -> Color.parseColor("#E4E199")  // Olive Container
-                "Braços" -> Color.parseColor("#F2DAFF")  // Purple Container
+                "Bíceps" -> Color.parseColor("#F2DAFF")  // Purple Container
+                "Tríceps" -> Color.parseColor("#F2DAFF") // Purple Container
                 "Ombros" -> Color.parseColor("#FFDCC0")  // Orange Container
                 "Abdomem" -> Color.parseColor("#C6F0D2") // Green Container
                 "Cardio" -> Color.parseColor("#B9F0FF")  // Cyan Container
@@ -133,7 +134,8 @@ class WorkoutAdapter(
                 "Peito" -> Color.parseColor("#410002")
                 "Costas" -> Color.parseColor("#001B3D")
                 "Pernas" -> Color.parseColor("#1D1D00")
-                "Braços" -> Color.parseColor("#250059")
+                "Bíceps" -> Color.parseColor("#250059")
+                "Tríceps" -> Color.parseColor("#250059")
                 "Ombros" -> Color.parseColor("#2F1500")
                 "Abdomem" -> Color.parseColor("#00210A")
                 "Cardio" -> Color.parseColor("#001F24")

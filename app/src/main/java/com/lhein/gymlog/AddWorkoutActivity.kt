@@ -123,7 +123,7 @@ class AddWorkoutActivity : AppCompatActivity() {
 
     private fun setupSpinners() {
         val dias = listOf("Seg", "Ter", "Qua", "Qui", "Sex", "Sáb", "Dom")
-        val grupos = listOf("Peito", "Costas", "Pernas", "Braços", "Ombros", "Abdomem", "Cardio")
+        val grupos = listOf("Peito", "Costas", "Pernas", "Bíceps", "Tríceps", "Ombros", "Abdomem", "Cardio")
 
         binding.spinnerDia.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, dias)
         binding.spinnerGrupo.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, grupos)
