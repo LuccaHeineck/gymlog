@@ -29,7 +29,6 @@ class WorkoutAdapter(
         fun bind(workout: Workout, position: Int) {
             val context = itemView.context
 
-            // 1. Dados Básicos
             binding.txtExerciseName.text = workout.exerciseName
             
             val details = mutableListOf<String>()
@@ -57,8 +56,7 @@ class WorkoutAdapter(
                 binding.imgWorkoutShape.visibility = android.view.View.VISIBLE
             }
 
-            // 2. Estado de Conclusão (Checkbox)
-            binding.cbComplete.setOnCheckedChangeListener(null) // Evita trigger ao reciclar
+            binding.cbComplete.setOnCheckedChangeListener(null)
             binding.cbComplete.isChecked = workout.isComplete
             
             // Visual feedback
@@ -76,13 +74,11 @@ class WorkoutAdapter(
                 onCompleteClick(workout.copy(isComplete = isChecked))
             }
 
-            // 3. Badge Dinâmica por Grupo
             val group = workout.group
             binding.txtGroupBadge.text = group
             binding.txtGroupBadge.backgroundTintList = ColorStateList.valueOf(getBadgeColor(group))
             binding.txtGroupBadge.setTextColor(getBadgeTextColor(group))
 
-            // 3. Lista de Shapes (Material Design 3)
             val shapes = listOf(
                 R.style.ShapeAppearance_M3_Clamshell,
                 R.style.ShapeAppearance_M3_Arch,
@@ -95,7 +91,6 @@ class WorkoutAdapter(
                 R.style.ShapeAppearance_M3_Bun
             )
 
-            // 4. Aplicação do Shape e Cor de Fundo Adaptável
             val selectedShape = shapes[position % shapes.size]
             binding.imgWorkoutShape.shapeAppearanceModel = ShapeAppearanceModel.builder(
                 context,
@@ -103,17 +98,15 @@ class WorkoutAdapter(
                 0
             ).build()
 
-            // Pega a cor do tema (PrimaryContainer) para o shape ser Dark Mode friendly
             val shapeBgColor = MaterialColors.getColor(context, com.google.android.material.R.attr.colorPrimaryContainer, Color.LTGRAY)
             binding.imgWorkoutShape.backgroundTintList = ColorStateList.valueOf(shapeBgColor)
 
-            // 5. Clique
             binding.root.setOnClickListener {
                 onClick(workout)
             }
         }
 
-        // Lógica de cores das badges (Container Colors)
+        // Lógica de cores das badges
         private fun getBadgeColor(group: String): Int {
             return when (group) {
                 "Peito" -> Color.parseColor("#FFDAD6")   // Red Container
@@ -128,7 +121,7 @@ class WorkoutAdapter(
             }
         }
 
-        // Lógica de cores do texto das badges (On-Container Colors)
+        // Lógica de cores do texto das badges
         private fun getBadgeTextColor(group: String): Int {
             return when (group) {
                 "Peito" -> Color.parseColor("#410002")

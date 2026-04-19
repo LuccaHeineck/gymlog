@@ -21,7 +21,7 @@ class AddWorkoutActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupSpinners()
-        setupListeners() // Configura os limpadores de erro
+        setupListeners()
 
         val bundle = intent.extras
         if (bundle != null) {
@@ -44,7 +44,6 @@ class AddWorkoutActivity : AppCompatActivity() {
         }
     }
 
-    // Limpa o erro assim que o usuário começa a digitar
     private fun setupListeners() {
         binding.editNomeExercicio.addTextChangedListener { binding.layoutNome.error = null }
         binding.editSeries.addTextChangedListener { binding.layoutSeries.error = null }

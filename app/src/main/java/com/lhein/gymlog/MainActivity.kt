@@ -20,7 +20,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        // Inicializa o Adapter com a nova lógica: clicar no card abre a tela de edição
         workoutAdapter = WorkoutAdapter(
             onClick = { workout ->
                 val intent = Intent(this, AddWorkoutActivity::class.java)
@@ -28,9 +27,7 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             },
             onCompleteClick = { workout ->
-                // Atualiza no banco de dados
                 workoutDAO.update(workout)
-                // Atualiza a lista visualmente (re-filtra)
                 val diaAtual = binding.tabLayoutDays.getTabAt(binding.tabLayoutDays.selectedTabPosition)?.text.toString()
                 executarFiltro(diaAtual)
             }
@@ -39,7 +36,6 @@ class MainActivity : AppCompatActivity() {
         binding.rvwWorkouts.adapter = workoutAdapter
         binding.rvwWorkouts.layoutManager = LinearLayoutManager(this)
 
-        // Botão para adicionar novo treino (abre a tela vazia)
         binding.fabAdicionar.setOnClickListener {
             val intent = Intent(this, AddWorkoutActivity::class.java)
             startActivity(intent)
@@ -50,7 +46,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        // Sempre que voltar para a tela, atualiza o filtro da aba selecionada
         val diaAtual = binding.tabLayoutDays.getTabAt(binding.tabLayoutDays.selectedTabPosition)?.text.toString()
         executarFiltro(diaAtual)
     }
@@ -71,16 +66,13 @@ class MainActivity : AppCompatActivity() {
             override fun onTabReselected(tab: TabLayout.Tab?) {}
         })
 
-        // Inicializa com Segunda-feira
         executarFiltro("Seg")
     }
 
     private fun executarFiltro(dia: String) {
-        // Busca a lista completa do banco e filtra pelo dia da aba
         val todosOsWorkouts = workoutDAO.list()
         val treinosFiltrados = todosOsWorkouts.filter { it.dayOfWeek == dia }
 
-        // Atualiza o RecyclerView através do Adapter
         workoutAdapter.updateList(treinosFiltrados)
 
         println("Filtrando treinos para: $dia - Encontrados: ${treinosFiltrados.size}")
